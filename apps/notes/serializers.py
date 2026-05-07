@@ -3,7 +3,7 @@ from django.utils.html import escape
 
 from .models import Note
 
-class NoteSerizlizer(serializers.ModelSerializer):
+class NoteSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Note
@@ -21,10 +21,10 @@ class NoteSerizlizer(serializers.ModelSerializer):
         return escape(value.strip())
     
 
-class CreateNoteSerizlizer(NoteSerizlizer):
+class CreateNoteSerializer(NoteSerializer):
     pass
 
 
-class UpdateNoteSerizlizer(NoteSerizlizer):
+class UpdateNoteSerializer(NoteSerializer):
     title = serializers.CharField(required=False)
     content = serializers.CharField(required=False)
