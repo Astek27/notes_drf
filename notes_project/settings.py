@@ -118,4 +118,52 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+DJANGO_REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '100/hour',
+    },
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+    ],
+}
 
+
+if DEBUG:
+    CORS_ALLOW_ALL_ORIGINS = True
+else:
+    CORS_ALLOWED_ORIGINS = [
+        'http://localhost:3000',
+        'http://127.0.0.1:3000',
+    ]
+
+SECURE_BROWSER_XSS_FILTER = True  # Защита от XSS-атак
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Запрет MIME-типов
+X_FRAME_OPTIONS = 'DENY'  # Защита от кликджекинга
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'INFO',  # Уровень логирования
+            'class': 'logging.FileHandler',  # Логирование в файл
+            'filename': BASE_DIR / 'debug.log',  # Путь к файлу логов
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],  # Используемый обработчик
+            'level': 'INFO',  # Уровень логирования
+            'propagate': True,  # Передача логов родительским логгерам
+        },
+    },
+}
