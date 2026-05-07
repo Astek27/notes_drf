@@ -9,7 +9,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',')
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',') # type: ignore
 
 
 DJANGO_APPS = [
@@ -22,12 +22,12 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-    'rest_framefork',
+    'rest_framework',
     'corsheaders'
 ]
 
 LOCAL_APPS = [
-    '',
+    'apps.notes',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -71,7 +71,7 @@ WSGI_APPLICATION = 'notes_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('POSTGRES_NAME', default='modelhub'),
+        'NAME': config('POSTGRES_DB', default='modelhub'),
         'USER': config('POSTGRES_USER', default='postgres'),
         'PASSWORD': config('POSTGRES_PASSWORD', default='password'),
         'HOST': config('POSTGRES_HOST', default='localhost'),
